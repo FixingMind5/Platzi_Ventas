@@ -1,8 +1,5 @@
-from flask import Flask
-
-app = Flask(__name__)
-
-@app.route('/')
+clients = 'Pablo, Ricardo,'
 
 if __name__ == '__main__':
-    app.run()
+    clients += ' Manuel'
+    print(clients)
