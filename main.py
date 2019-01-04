@@ -4,8 +4,8 @@ def _print_welcome():
     print(('*' * 17) + ('WELCOME PLATZERS') + ('*' * 17))
     print('*' * 50)
     print('What do u wanna do?')
-    print('[C]reate client')
-    print('[D]elete cilent')
+    print('[c]reate client')
+    print('[d]elete cilent')
 
 
 def _add_coma():
@@ -32,13 +32,13 @@ if __name__ == '__main__':
     command = input()
     str(command)
 
-    if command == 'C':
+    if command == 'c':
         print('Nuevo cliente:')
         nombre_Cliente = input()
         str(nombre_Cliente)
         add_cliente(nombre_Cliente)
         list_clients()
-    elif command == 'D':
+    elif command == 'd':
         pass
     else:
         print('Invalid command, type -h for help')
