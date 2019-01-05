@@ -6,7 +6,7 @@ def _print_welcome():
     print('What do u wanna do?')
     print('[c]reate client')
     print('[d]elete cilent')
-
+    print('[u]pdate client')
 
 def _add_coma():
     global clients
@@ -27,10 +27,17 @@ def add_cliente(nombre_Cliente):
         print(nombre_Cliente + ' already exists')
 
 
+def updateClient(nombre_Cliente, nuevoCliente):
+    global clients
+    if nombre_Cliente in clients:
+        clients = clients.replace(nombre_Cliente, nuevoCliente)
+    else:
+        print(nuevoCliente, "isn't in client database")
+
+
 if __name__ == '__main__':
     _print_welcome()
     command = input()
-    str(command)
 
     if command == 'c':
         print('Nuevo cliente:')
@@ -40,5 +47,10 @@ if __name__ == '__main__':
         list_clients()
     elif command == 'd':
         pass
+    elif command == 'u':
+        nombre_Cliente = input('Actual client name is: ')
+        nuevoCliente = input("New client\'s name is: ")
+        updateClient(nombre_Cliente, nuevoCliente)
+        list_clients()
     else:
         print('Invalid command, type -h for help')
