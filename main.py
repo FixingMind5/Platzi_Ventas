@@ -5,12 +5,14 @@ clients = ['pablo', 'ricardo']
 def _print_welcome():
     print(('*' * 17) + ('WELCOME PLATZERS') + ('*' * 17))
     print('*' * 50)
-    print('What do u wanna do?')
-    print('---|[c]reate client')
-    print('---|[l]ist clients')
-    print('---|[u]pdate client')
-    print('---|[d]elete cilent')
-    print('---|[s]earch client')
+    print('-' * 50)
+    print('-' * 14, 'WHAT DO U WANNA DO?', '-' * 15)
+    print('-' * 17, '[c]reate client', '-' * 16)
+    print('-' * 17, '[l]ist clients', '-' * 17)
+    print('-' * 17, '[u]pdate client', '-' * 16)
+    print('-' * 17, '[d]elete cilent', '-' * 16)
+    print('-' * 17, '[s]earch client', '-' * 16)
+    print('-' * 50)
 
 """def _add_coma():
     global clients
