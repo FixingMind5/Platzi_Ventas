@@ -35,6 +35,15 @@ def updateClient(nombre_Cliente, nuevoCliente):
         print(nuevoCliente, "isn't in client database")
 
 
+def deleteClient(nombre_Cliente):
+    global clients
+    if nombre_Cliente in clients:
+        clients = clients.replace(nombre_Cliente, '')
+        print('Ready!')
+    else:
+        print(nombre_Cliente, "didn't exists")
+
+
 if __name__ == '__main__':
     _print_welcome()
     command = input()
@@ -46,7 +55,9 @@ if __name__ == '__main__':
         add_cliente(nombre_Cliente)
         list_clients()
     elif command == 'd':
-        pass
+        nombre_Cliente = input("Who's the victim? ")
+        deleteClient(nombre_Cliente)
+        list_clients()
     elif command == 'u':
         nombre_Cliente = input('Actual client name is: ')
         nuevoCliente = input("New client\'s name is: ")
