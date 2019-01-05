@@ -1,12 +1,13 @@
-clients = 'Pablo, Ricardo'
+clients = 'Pablo, Ricardo, '
 
 def _print_welcome():
     print(('*' * 17) + ('WELCOME PLATZERS') + ('*' * 17))
     print('*' * 50)
     print('What do u wanna do?')
-    print('[c]reate client')
-    print('[d]elete cilent')
-    print('[u]pdate client')
+    print('---|[c]reate client')
+    print('---|[d]elete cilent')
+    print('---|[u]pdate client')
+    print('---|[s]earch client')
 
 def _add_coma():
     global clients
@@ -44,6 +45,19 @@ def deleteClient(nombre_Cliente):
         print(nombre_Cliente, "didn't exists")
 
 
+def searchClient(nombre_Cliente):
+    global clients
+
+    client_list = clients.split(', ')
+
+    for client in client_list:
+        if client != nombre_Cliente:
+            continue
+        else:
+            return True
+
+
+
 if __name__ == '__main__':
     _print_welcome()
     command = input()
@@ -63,5 +77,15 @@ if __name__ == '__main__':
         nuevoCliente = input("New client\'s name is: ")
         updateClient(nombre_Cliente, nuevoCliente)
         list_clients()
+    elif command == 's':
+        nombre_Cliente = input("What name do you wanna search? ")
+        finder = searchClient(nombre_Cliente)
+
+        if finder:
+            print(" {} is in client's list".format(nombre_Cliente))
+        else:
+            print(" {} isn't in the client list, sorry :(".format(nombre_Cliente))
+
+
     else:
         print('Invalid command, type -h for help')
