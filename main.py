@@ -5,8 +5,9 @@ def _print_welcome():
     print('*' * 50)
     print('What do u wanna do?')
     print('---|[c]reate client')
-    print('---|[d]elete cilent')
+    print('---|[l]ist clients')
     print('---|[u]pdate client')
+    print('---|[d]elete cilent')
     print('---|[s]earch client')
 
 def _add_coma():
@@ -68,14 +69,16 @@ if __name__ == '__main__':
         str(nombre_Cliente)
         add_cliente(nombre_Cliente)
         list_clients()
-    elif command == 'd':
-        nombre_Cliente = input("Who's the victim? ")
-        deleteClient(nombre_Cliente)
+    elif command == 'l':
         list_clients()
     elif command == 'u':
         nombre_Cliente = input('Actual client name is: ')
         nuevoCliente = input("New client\'s name is: ")
         updateClient(nombre_Cliente, nuevoCliente)
+        list_clients()
+    elif command == 'd':
+        nombre_Cliente = input("Who's the victim? ")
+        deleteClient(nombre_Cliente)
         list_clients()
     elif command == 's':
         nombre_Cliente = input("What name do you wanna search? ")
