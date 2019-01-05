@@ -1,6 +1,19 @@
 import sys
 
-clients = ['pablo', 'ricardo']
+clients = [
+    {
+        'name': 'Pablo',
+        'company': 'Google',
+        'e-mail': 'pablo@gmail.com',
+        'position': 'Software engineer'
+    },
+    {
+        'name': 'Ricardo',
+        'company': 'Facebook',
+        'e-mail': 'ricardo@facebook.com',
+        'position': 'Data engineer'
+    }
+]
 
 def _print_welcome():
     print(('*' * 17) + ('WELCOME PLATZERS') + ('*' * 17))
@@ -22,15 +35,22 @@ def _print_welcome():
 def list_clients():
     global clients
     for idx, client in enumerate(clients):
-        print(" {}: {} ".format(idx, client))
+        print(" {uid} | {name} : \n {company} | {email} | {position} ".format(
+        uid = idx,
+        name = client['name'],
+        company = client['company'],
+        email = client['e-mail'],
+        position = client['position']
+        )
+    )
 
 
-def add_cliente(nombre_Cliente):
+def add_cliente(client):
     global clients
-    if nombre_Cliente not in clients:
-        clients.append(nombre_Cliente)
+    if client not in clients:
+        clients.append(client)
     else:
-        print(nombre_Cliente, "already exists")
+        print(client, "already exists")
 
 
 def updateClient(nombre_Cliente, nuevoCliente):
@@ -61,6 +81,15 @@ def searchClient(nombre_Cliente):
             return True
 
 
+def _getField(field_name):
+    field = None
+
+    while not field:
+        field = input("What's the client {}? ".format(field_name))
+
+    return field
+
+
 def _get_client():
     nombre_Cliente = None
 
@@ -82,8 +111,14 @@ if __name__ == '__main__':
     command = input()
 
     if command == 'c':
-        nombre_Cliente = _get_client()
-        add_cliente(nombre_Cliente)
+        client = {
+            'name': _getField('name'),
+            'company': _getField('company'),
+            'e-mail': _getField('e-mail'),
+            'position': _getField('position')
+        }
+        
+        add_cliente(client)
         list_clients()
     elif command == 'l':
         list_clients()
