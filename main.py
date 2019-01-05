@@ -64,9 +64,7 @@ if __name__ == '__main__':
     command = input()
 
     if command == 'c':
-        print('Nuevo cliente:')
-        nombre_Cliente = input()
-        str(nombre_Cliente)
+        nombre_Cliente = input('Nuevo cliente: ')
         add_cliente(nombre_Cliente)
         list_clients()
     elif command == 'l':
