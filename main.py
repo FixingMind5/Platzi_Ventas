@@ -1,6 +1,6 @@
 import sys
 
-clients = 'Pablo, Ricardo, '
+clients = ['pablo', 'ricardo']
 
 def _print_welcome():
     print(('*' * 17) + ('WELCOME PLATZERS') + ('*' * 17))
@@ -12,37 +12,38 @@ def _print_welcome():
     print('---|[d]elete cilent')
     print('---|[s]earch client')
 
-def _add_coma():
+"""def _add_coma():
     global clients
-    clients += ', '
+    clients += ', ' """
 
 
 def list_clients():
     global clients
-    print(clients)
+    for idx, client in enumerate(clients):
+        print(" {}: {} ".format(idx, client))
 
 
 def add_cliente(nombre_Cliente):
     global clients
     if nombre_Cliente not in clients:
-        clients += nombre_Cliente
-        _add_coma()
+        clients.append(nombre_Cliente)
     else:
-        print(nombre_Cliente + ' already exists')
+        print(nombre_Cliente, "already exists")
 
 
 def updateClient(nombre_Cliente, nuevoCliente):
     global clients
     if nombre_Cliente in clients:
-        clients = clients.replace(nombre_Cliente, nuevoCliente)
+        index = clients.index(nombre_Cliente)
+        clients[index] = nuevoCliente
     else:
-        print(nuevoCliente, "isn't in client database")
+        print(nombre_Cliente, "isn't in client database")
 
 
 def deleteClient(nombre_Cliente):
     global clients
     if nombre_Cliente in clients:
-        clients = clients.replace(nombre_Cliente, '')
+        clients.remove(nombre_Cliente)
         print('Ready!')
     else:
         print(nombre_Cliente, "didn't exists")
@@ -51,9 +52,7 @@ def deleteClient(nombre_Cliente):
 def searchClient(nombre_Cliente):
     global clients
 
-    client_list = clients.split(', ')
-
-    for client in client_list:
+    for client in clients:
         if client != nombre_Cliente:
             continue
         else:
