@@ -27,10 +27,6 @@ def _print_welcome():
     print('-' * 17, '[s]earch client', '-' * 16)
     print('-' * 50)
 
-"""def _add_coma():
-    global clients
-    clients += ', ' """
-
 
 def list_clients():
     global clients
@@ -53,22 +49,23 @@ def add_cliente(client):
         print(client, "already exists")
 
 
-def updateClient(nombre_Cliente, nuevoCliente):
+def updateClient(idClient, client):
     global clients
-    if nombre_Cliente in clients:
-        index = clients.index(nombre_Cliente)
-        clients[index] = nuevoCliente
-    else:
-        print(nombre_Cliente, "isn't in client database")
+    sizeOf = int(len(clients))
+
+    for i in range(sizeOf):
+        if idClient == clients.index(clients[i]):
+            clients[i] = client
+            print('READY!!\n')
+        elif idClient not in clients:
+            print(idClient, "isn't in client's database")
 
 
-def deleteClient(nombre_Cliente):
+def deleteClient(idxClient):
     global clients
-    if nombre_Cliente in clients:
-        clients.remove(nombre_Cliente)
-        print('Ready!')
-    else:
-        print(nombre_Cliente, "didn't exists")
+
+    clients.remove(clients[idxClient])
+    print('Ready!')
 
 
 def searchClient(nombre_Cliente):
@@ -106,30 +103,39 @@ def _get_client():
     return nombre_Cliente
 
 
+def setData():
+    client = {
+        'name': _getField('name'),
+        'company': _getField('company'),
+        'e-mail': _getField('e-mail'),
+        'position': _getField('position')
+    }
+
+    return client
+
+
 if __name__ == '__main__':
     _print_welcome()
     command = input()
 
     if command == 'c':
-        client = {
-            'name': _getField('name'),
-            'company': _getField('company'),
-            'e-mail': _getField('e-mail'),
-            'position': _getField('position')
-        }
-        
+        client = setData()
         add_cliente(client)
         list_clients()
     elif command == 'l':
         list_clients()
     elif command == 'u':
-        nombre_Cliente = input('Actual client name is: ')
-        nuevoCliente = input("New client\'s name is: ")
-        updateClient(nombre_Cliente, nuevoCliente)
+        list_clients()
+        print('\n')
+        client = setData()
+        idClient = int(input("Client's id is: "))
+        updateClient(idClient, client)
         list_clients()
     elif command == 'd':
-        nombre_Cliente = input("Who's the victim? ")
-        deleteClient(nombre_Cliente)
+        list_clients()
+        idxClient = input("Set the index client: ")
+        int(idxClient)
+        deleteClient(idxClient)
         list_clients()
     elif command == 's':
         nombre_Cliente = input("What name do you wanna search? ")
