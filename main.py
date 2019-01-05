@@ -1,3 +1,5 @@
+import sys
+
 clients = 'Pablo, Ricardo, '
 
 def _print_welcome():
@@ -23,8 +25,8 @@ def list_clients():
 def add_cliente(nombre_Cliente):
     global clients
     if nombre_Cliente not in clients:
-        _add_coma()
         clients += nombre_Cliente
+        _add_coma()
     else:
         print(nombre_Cliente + ' already exists')
 
@@ -58,13 +60,28 @@ def searchClient(nombre_Cliente):
             return True
 
 
+def _get_client():
+    nombre_Cliente = None
+
+    while not nombre_Cliente:
+        nombre_Cliente = input("Nuevo cliente: ")
+
+        if nombre_Cliente == 'exit':
+            nombre_Cliente = None
+            break
+
+    if not nombre_Cliente:
+        sys.exit()
+
+    return nombre_Cliente
+
 
 if __name__ == '__main__':
     _print_welcome()
     command = input()
 
     if command == 'c':
-        nombre_Cliente = input('Nuevo cliente: ')
+        nombre_Cliente = _get_client()
         add_cliente(nombre_Cliente)
         list_clients()
     elif command == 'l':
