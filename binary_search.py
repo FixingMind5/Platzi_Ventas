@@ -1,30 +1,38 @@
 import random
 
-def binarySearch(data, target, startsAt, endsAt):
-    if startsAt > endsAt:
-        print("No there isn't")
-        return False
+def binarySearch(d, t, s, e):
+    x = False
+    m = 0
 
-    mid = int((startsAt + endsAt) / 2)
+    if s > e:
+        x = False
 
-    if target == data[mid]:
-        print("YES! There is")
-        return True
-    elif target < data[mid]:
-        return binarySearch(data, target, startsAt, mid - 1)
-    else:
-        return binarySearch(data, target, mid + 1, endsAt)
+    while s <= e:
+        m = (s + e) // 2
+
+        if t == d[m]:
+            x = True
+            return m
+            break
+        elif t < d[m]:
+            e = m - 1
+        else:
+            s = m + 1
+
+    return x
+
 
 
 if __name__ == '__main__':
     """data = [random.randint(0, 100) for i in range(10)]"""
-    data = []
+    d = []
 
     for i in range(10):
-        data.append(random.randint(0, 100))
+        d.append(random.randint(0, 100))
 
-    data.sort()
-    print(data)
+    d.sort()
+    print(d)
 
-    target = int(input("Number: "))
-    found = binarySearch(data, target, 0, len(data) - 1)
+    t = int(input("Number: "))
+    found = binarySearch(d, t, 0, len(d) - 1)
+    print("{} number is at {} position".format(t, found))
