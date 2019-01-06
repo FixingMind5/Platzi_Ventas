@@ -133,8 +133,7 @@ if __name__ == '__main__':
         list_clients()
     elif command == 'd':
         list_clients()
-        idxClient = input("Set the index client: ")
-        int(idxClient)
+        idxClient = int(input("Set the index client: "))
         deleteClient(idxClient)
         list_clients()
     elif command == 's':
