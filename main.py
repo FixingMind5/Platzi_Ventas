@@ -1,19 +1,29 @@
 import sys
+import csv
+import os
 
-clients = [
-    {
-        'name': 'Pablo',
-        'company': 'Google',
-        'e-mail': 'pablo@gmail.com',
-        'position': 'Software engineer'
-    },
-    {
-        'name': 'Ricardo',
-        'company': 'Facebook',
-        'e-mail': 'ricardo@facebook.com',
-        'position': 'Data engineer'
-    }
-]
+CLIENT_TABLE = '.clients.csv'
+CLIENT_SCHEMA = ['name', 'company', 'e-mail', 'position']
+clients = []
+
+
+def _initialize_clients_from_storage():
+    with open(CLIENT_TABLE, mode='r') as f:
+        reader = csv.DictReader(f, fieldnames=CLIENT_SCHEMA)
+
+        for row in reader:
+            clients.append(row)
+
+
+def _save_clients_to_storage():
+    tmp_table_name = '{}.tmp'.format(CLIENT_TABLE)
+    with open(tmp_table_name, mode='w') as f:
+        writer = csv.DictWriter(f, fieldnames=CLIENT_SCHEMA)
+        writer.writerows(clients)
+
+        os.remove(CLIENT_TABLE)
+    os.rename(tmp_table_name, CLIENT_TABLE)
+
 
 def _print_welcome():
     print(('*' * 17) + ('WELCOME PLATZERS') + ('*' * 17))
@@ -72,7 +82,7 @@ def searchClient(nombre_Cliente):
     global clients
 
     for client in clients:
-        if client != nombre_Cliente:
+        if client['name'] != nombre_Cliente:
             continue
         else:
             return True
@@ -115,27 +125,24 @@ def setData():
 
 
 if __name__ == '__main__':
+    _initialize_clients_from_storage()
+
     _print_welcome()
     command = input()
 
     if command == 'c':
         client = setData()
         add_cliente(client)
-        list_clients()
     elif command == 'l':
         list_clients()
     elif command == 'u':
-        list_clients()
         print('\n')
         client = setData()
         idClient = int(input("Client's id is: "))
         updateClient(idClient, client)
-        list_clients()
     elif command == 'd':
-        list_clients()
         idxClient = int(input("Set the index client: "))
         deleteClient(idxClient)
-        list_clients()
     elif command == 's':
         nombre_Cliente = input("What name do you wanna search? ")
         finder = searchClient(nombre_Cliente)
@@ -148,3 +155,5 @@ if __name__ == '__main__':
 
     else:
         print('Invalid command, type -h for help')
+
+    _save_clients_to_storage()
