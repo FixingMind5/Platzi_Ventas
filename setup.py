@@ -9,6 +9,6 @@ setup(
     ],
     entry_points='''
         [console_scripts]
-        pv=pv:clic
+        pv=pv:cli
     ''',
 )
