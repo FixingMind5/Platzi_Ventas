@@ -17,3 +17,25 @@ class ClientService:
             reader = csv.DictReader(f, fieldnames=Client.schema())
 
             return list(reader)
+
+    def updateC(self, updatedClient):
+        clients = self.listClients()
+
+        updatedClients = []
+
+        for client in clients:
+            if client['uid'] == updatedClient.uid:
+                updatedClients.append(updateClient.toDict())
+            else:
+                updatedClients.append(client)
+
+        self._saveToDisk(updatedClients)
+
+    def _saveToDisk(clients):
+        tmpTable = self.table_name + '.tmp'
+        with open(tmpTable) as f:
+            writer = csv.DictWriter(f, fieldnames=Client.schema())
+            write.writerows(clients)
+
+            os.remove(self.table_name)
+            os.remove(tmpTable, self.table_name)
