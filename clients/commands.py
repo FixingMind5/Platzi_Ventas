@@ -55,10 +55,35 @@ def list(ctx):
 
 
 @clients.command()
+@click.argument('cid',
+                type=str)
 @click.pass_context
 def update(ctx, cid):
     """Updates client"""
-    pass
+    client_service = ClientService(ctx.obj['clients_table'])
+
+    client_list = client_service.listClients()
+
+    client = [client for client in client_list if client['uid'] == cid]
+
+    if client:
+        client = _update_client_flow(Client(**client[0]))
+        client_service.updateC(client)
+
+        click.echo("READY!!!")
+    else:
+        click.echo("Client {} not found".format(client))
+
+
+def _update_client_flow(client):
+    click.echo('Leave it empty if you dont want to modify it')
+
+    client.name = click.prompt("New name", type=str, default=client.name)
+    client.company = click.prompt("New company", type=str, default=client.company)
+    client.email = click.prompt("New email", type=str, default=client.email)
+    client.position = click.prompt("New position", type=str, default=client.position)
+
+    return client
 
 
 @clients.command()
