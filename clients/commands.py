@@ -87,10 +87,20 @@ def _update_client_flow(client):
 
 
 @clients.command()
+@click.argument('cid',
+                type=str)
 @click.pass_context
 def delete(ctx, cid):
     """Deletes client"""
-    pass
+    client_service = ClientService(ctx.obj['clients_table'])
+    client_list = client_service.listClients()
+    client = [client for client in client_list if client['uid'] == cid]
+
+    if client:
+        client_service.deleteClient(client)
+        click.echo('Client already deleted')
+    else:
+        click.echo("Client did't exists")
 
 
 all = clients

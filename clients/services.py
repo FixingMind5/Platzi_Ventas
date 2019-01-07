@@ -40,3 +40,26 @@ class ClientService:
 
             os.remove(self.table_name)
         os.rename(tmpTable, self.table_name)
+
+    def deleteClient(self, client):
+        clients = self.listClients()
+
+        allClients = self.table_name
+
+        for client in clients:
+            if client['uid'] == client.uid:
+                allClients.pop('uid')
+            else:
+                click.echo('Sorry client not found')
+
+        self._removeFromDisk(allClients)
+
+
+    def _removeFromDisk(allClients):
+        tmpTable = self.table_name + '.tmp'
+        with open(tmpTable, mode='a') as f:
+            writer = csv.DictWriter(f, fieldnames=Client.schema())
+            writer.writerows(clients)
+
+            os.remove(self.table_name)
+        os.rename(tmpTable, self.table_name)
