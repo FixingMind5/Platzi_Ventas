@@ -35,4 +35,4 @@ def delete(ctx, cid):
     pass
 
 
-all = clients()
+all = clients
