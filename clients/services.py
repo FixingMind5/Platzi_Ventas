@@ -1,5 +1,6 @@
 from clients.models import Client
 
+import click
 import csv
 import os
 
@@ -41,25 +42,9 @@ class ClientService:
             os.remove(self.table_name)
         os.rename(tmpTable, self.table_name)
 
-    def deleteClient(self, client):
+    def deleteClient(self, dClient):
         clients = self.listClients()
 
-        allClients = self.table_name
+        clients.remove(dClient[0])
 
-        for client in clients:
-            if client['uid'] == client.uid:
-                allClients.pop('uid')
-            else:
-                click.echo('Sorry client not found')
-
-        self._removeFromDisk(allClients)
-
-
-    def _removeFromDisk(allClients):
-        tmpTable = self.table_name + '.tmp'
-        with open(tmpTable, mode='a') as f:
-            writer = csv.DictWriter(f, fieldnames=Client.schema())
-            writer.writerows(clients)
-
-            os.remove(self.table_name)
-        os.rename(tmpTable, self.table_name)
+        self._saveToDisk(clients)

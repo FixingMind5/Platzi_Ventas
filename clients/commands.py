@@ -94,10 +94,10 @@ def delete(ctx, cid):
     """Deletes client"""
     client_service = ClientService(ctx.obj['clients_table'])
     client_list = client_service.listClients()
-    client = [client for client in client_list if client['uid'] == cid]
+    dClient = [dClient for dClient in client_list if dClient['uid'] == cid]
 
-    if client:
-        client_service.deleteClient(client)
+    if dClient:
+        client_service.deleteClient(dClient)
         click.echo('Client already deleted')
     else:
         click.echo("Client did't exists")
